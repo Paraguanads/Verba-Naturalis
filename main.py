@@ -1,3 +1,5 @@
+import logging
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 from flask import Flask, request, render_template
 import nltk
 from gensim.summarization import summarize
@@ -16,7 +18,6 @@ def home():
             summary = summarize(text, ratio=0.2)
             return render_template("index.html", summary=summary)
 
-    # Manejar solicitudes GET
     return render_template("index.html")
 
 

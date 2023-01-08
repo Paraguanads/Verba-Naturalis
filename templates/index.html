@@ -1,0 +1,22 @@
+<form method="POST" action="{{ url_for('home') }}">
+  <textarea name="input"></textarea>
+  <button type="submit" name="submit" value="tokenize">Tokenizar</button>
+  <button type="submit" name="submit" value="summarize">Resumir</button>
+</form>
+
+{% if tokens %}
+  <h2>Tokens:</h2>
+  <p>{{ tokens }}</p>
+  <h2>Tokens etiquetados:</h2>
+  <p>{{ tagged_tokens }}</p>
+{% endif %}
+
+{% if summary %}
+    {% if summary != "" %}
+        <p>{{ summary }}</p>
+    {% else %}
+        <p>Lo siento, no se puede resumir el texto.</p>
+    {% endif %}
+{% endif %}
+
+

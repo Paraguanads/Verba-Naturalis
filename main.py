@@ -1,6 +1,6 @@
 # Extra logs for debugging
 import logging
-logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.DEBUG)
 # Main imports
 from flask import Flask, request, render_template
 import nltk
@@ -44,7 +44,6 @@ def generate_summary(text, model, tokenizer, device, max_length=1024):
 
 # main function, processing the input with the selected option, also print errors for debugging purposes
 from collections import Counter
-
 @app.route('/', methods=["GET", "POST"])
 def home():
     if request.method == "POST":
@@ -58,7 +57,7 @@ def home():
                 print(e)  # Print error if exists
                 return render_template("index.html", error=str(e))
 
-            return render_template("index.html", tokens=sorted_counts)
+            return render_template("index.html", tokens_count=sorted_counts)
 
         elif request.form["submit"] == "summarize":
             try:

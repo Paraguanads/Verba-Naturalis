@@ -13,19 +13,19 @@
     <input type="submit" name="submit" value="sentiment">
 </form>
 {% if tokens %}
-<h2>Tokenization</h2>
-<table>
-    <tr>
-        <th>Token</th>
-        <th>Tag</th>
-    </tr>
-    {% for token, tag in tagged_tokens %}
-    <tr>
-        <td>{{ token }}</td>
-        <td>{{ tag }}</td>
-    </tr>
-    {% endfor %}
-</table>
+    <h2>Tokenization</h2>
+    <table>
+        <tr>
+            <th>Word</th>
+            <th>Frequency</th>
+        </tr>
+        {% for word, frequency in tokens.items() %}
+        <tr>
+            <td>{{ word }}</td>
+            <td>{{ frequency }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 {% endif %}
 {% if summary %}
 <h2>Summary</h2>
@@ -40,4 +40,4 @@
 <p>{{ error }}</p>
 {% endif %}
 
-</body>
+</html>

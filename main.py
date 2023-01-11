@@ -43,20 +43,23 @@ def generate_summary(text, model, tokenizer, device, max_length=1024):
     return summary_text
 
 # main function, processing the input with the selected option, also print errors for debugging purposes
+from collections import Counter
+
 @app.route('/', methods=["GET", "POST"])
 def home():
     if request.method == "POST":
         text = request.form["input"]
-
         if request.form["submit"] == "tokenize":
             try:
                 tokens = nltk.word_tokenize(text)
-                tagged_tokens = nltk.pos_tag(tokens)
+                counts = Counter(tokens)
+                sorted_counts = dict(sorted(counts.items(), key=lambda item: item[1], reverse=True))
             except Exception as e:
                 print(e)  # Print error if exists
                 return render_template("index.html", error=str(e))
 
-            return render_template("index.html", tokens=tokens, tagged_tokens=tagged_tokens)
+            return render_template("index.html", tokens=sorted_counts)
+
         elif request.form["submit"] == "summarize":
             try:
                 summary = generate_summary(text, model, tokenizer, device)
@@ -67,13 +70,12 @@ def home():
             return render_template("index.html", summary=summary)
         elif request.form["submit"] == "sentiment":
             try:
-                sentiment = predict_sentiment(model, tokenizer, device, text)
+                sentiment = sia.polarity_scores(text)
             except Exception as e:
                 print(e)  # Print error if exists
                 return render_template("index.html", error=str(e))
 
             return render_template("index.html", sentiment=sentiment)
-
     return render_template("index.html")
 
 # Run the app

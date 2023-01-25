@@ -10,8 +10,8 @@ This application processes text using Transformers, Torch and NLTK in Python (un
 
 ## Summary 
 Take the most relevant content from a long text and show it to the user in a summarized way. It is ideal for creating microblog entries based on medium-long texts, as well as for a more "laser eyes" understanding.
-Sentiment
 
+## Sentiment
 Extract the sentiment contained in the text taking into account three variables:
 
 ### Negative

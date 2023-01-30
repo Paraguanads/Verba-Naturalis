@@ -1,0 +1,21 @@
+body {
+  background: Linen;
+  margin-top: 50px;
+  margin-left: 100px;
+  }
+
+h1 {
+  font-family: 'Berkshire Swash', cursive;
+  color: FireBrick;
+  }
+
+h2 {
+  font-family: 'Open Sans', sans-serif;
+  color: DarkSlateGray;
+  }
+
+p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.2em;
+  color: DarkSlateGray;
+  }

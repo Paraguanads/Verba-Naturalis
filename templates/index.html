@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Verba Naturalis (beta)</title>
+    <!--  Load CSS -->
+    <link rel="stylesheet" href='static/main.css'>
+<!--  Load Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 </head>
 <h1>Verba Naturalis (beta)</h1>
 <form method="post">
     <textarea name="input" rows="10" cols="50"></textarea>
     <br>
-    <input type="submit" name="submit" value="summarize">
-    <input type="submit" name="submit" value="sentiment">
+    <input type="submit" name="submit" value="Summarize">
+    <input type="submit" name="submit" value="Sentiment">
 </form>
 {% if tokens %}
     <h2>Tokenization</h2>

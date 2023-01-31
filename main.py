@@ -51,7 +51,7 @@ def index():
         text = request.form["input"]
         print("Submit value:", request.form["submit"])
         logging.info("Submit value: %s", request.form["submit"])
-        if request.form["submit"] == "tokenize":
+        if request.form["submit"] == "Tokenize":
             try:
                 tokens = nltk.word_tokenize(text)
                 counts = Counter(tokens)
@@ -62,7 +62,7 @@ def index():
 
             return render_template("index.html", tokens_count=sorted_counts)
 
-        elif request.form["submit"] == "summarize":
+        elif request.form["submit"] == "Summarize":
             try:
                 summary = generate_summary(text, model, tokenizer, device)
             except Exception as e:
@@ -70,7 +70,7 @@ def index():
                 return render_template("index.html", error=str(e))
 
             return render_template("index.html", summary=summary)
-        elif request.form["submit"] == "sentiment":
+        elif request.form["submit"] == "Sentiment":
             try:
                 sentiment = sia.polarity_scores(text)
             except Exception as e:

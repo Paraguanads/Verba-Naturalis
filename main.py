@@ -8,7 +8,7 @@ import torch
 from transformers import BartTokenizer, BartForConditionalGeneration
 
 # Flask init
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates", static_folder="static")
 
 # Load BART tokenizer
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -45,16 +45,19 @@ def generate_summary(text, model, tokenizer, device, max_length=1024):
 # main function, processing the input with the selected option, also print errors for debugging purposes
 from collections import Counter
 @app.route('/', methods=["GET", "POST"])
-def home():
+def index():
+    print(request.path)
     if request.method == "POST":
         text = request.form["input"]
+        print("Submit value:", request.form["submit"])
+        logging.info("Submit value: %s", request.form["submit"])
         if request.form["submit"] == "tokenize":
             try:
                 tokens = nltk.word_tokenize(text)
                 counts = Counter(tokens)
                 sorted_counts = dict(sorted(counts.items(), key=lambda item: item[1], reverse=True))
             except Exception as e:
-                print(e)  # Print error if exists
+                logging.error(e)  # Log error if exists
                 return render_template("index.html", error=str(e))
 
             return render_template("index.html", tokens_count=sorted_counts)
@@ -63,7 +66,7 @@ def home():
             try:
                 summary = generate_summary(text, model, tokenizer, device)
             except Exception as e:
-                print(e)  # Print error if exists
+                logging.error(e)  # Log error if exists
                 return render_template("index.html", error=str(e))
 
             return render_template("index.html", summary=summary)
@@ -71,7 +74,7 @@ def home():
             try:
                 sentiment = sia.polarity_scores(text)
             except Exception as e:
-                print(e)  # Print error if exists
+                logging.error(e)  # Log error if exists
                 return render_template("index.html", error=str(e))
 
             return render_template("index.html", sentiment=sentiment)
